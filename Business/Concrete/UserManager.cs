@@ -29,7 +29,6 @@ namespace Business.Concrete
         public IResult Delete(User user)
         {
             _userDal.Delete(user);
-            Console.WriteLine(Messages.UserDeleted);
             return new SuccessResult();
         }
         public IResult Delete(int userId)
@@ -38,12 +37,10 @@ namespace Business.Concrete
 
             if (userToDelete == null)
             {
-                Console.WriteLine(Messages.UserNotFound);
                 return new ErrorResult(Messages.UserNotFound);
             }
 
             _userDal.Delete(userToDelete);
-            Console.WriteLine(Messages.UserDeleted);
             return new SuccessResult();
         }
 
