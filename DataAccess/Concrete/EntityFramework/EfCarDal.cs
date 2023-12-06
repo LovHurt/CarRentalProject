@@ -15,7 +15,7 @@ namespace DataAccess.Concrete.EntityFramework
 {
     public class EfCarDal : EfEntityRepositoryBase<Car, CarContext>, ICarDal
     {
-        public List<CarDetailDto> GetCarDetails()
+        public List<CarDetailDto> GetCarDetails(Expression<Func<CarDetailDto, bool>> filter =null)
         {
             using (CarContext context = new CarContext())
             {
@@ -24,12 +24,27 @@ namespace DataAccess.Concrete.EntityFramework
                              join cl in context.Colors on c.ColorId equals cl.ColorId
                              select new CarDetailDto
                                  {
-                                     CarId = c.CarId, BrandName = b.BrandName,
-                                     ColorName = cl.ColorName, ModelYear = c.ModelYear,
-                                     DailyPrice = c.DailyPrice, Description = c.Description
-                                 };
-                    return result.ToList();
+                                     CarId = c.CarId, 
+                                     BrandName = b.BrandName,
+                                     ColorName = cl.ColorName, 
+                                     ModelYear = c.ModelYear,
+                                     DailyPrice = c.DailyPrice, 
+                                     Description = c.Description,
+                                     CarImages = ((from ci in context.CarImages
+                                         where (c.CarId == ci.CarId)
+                                         select new CarImage
+                                         {
+                                             CarId = ci.CarId,
+                                             CarImageId = ci.CarImageId,
+                                             ImagePath = ci.ImagePath
+                                         }).ToList())
+                             };
+                return filter == null
+                    ? result.ToList()
+                    : result.Where(filter).ToList();
             }
         }
+
+        
     }
 }
