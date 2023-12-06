@@ -44,7 +44,7 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterAssemblyTypes(assembly).AsImplementedInterfaces()
                 .EnableInterfaceInterceptors(new ProxyGenerationOptions()
                 {
-                    Selector = new AspectInterceptorSelector()
+                    Selector = new AspectInterceptorSelector() 
                 }).SingleInstance();
 
 
