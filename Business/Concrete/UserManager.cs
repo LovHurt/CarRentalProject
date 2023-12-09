@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Business.Abstract;
 using Business.Constants;
+using Core.Entities.Concrete;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -33,7 +34,7 @@ namespace Business.Concrete
         }
         public IResult Delete(int userId)
         {
-            var userToDelete = _userDal.Get(u => u.UserId == userId);
+            var userToDelete = _userDal.Get(u => u.Id == userId);
 
             if (userToDelete == null)
             {
@@ -50,9 +51,21 @@ namespace Business.Concrete
             return new SuccessDataResult<List<User>>(_userDal.GetAll());
         }
 
+        public User GetByMail(string email)
+        {
+            return _userDal.Get(u => u.Email == email);
+
+        }
+
         public IDataResult<User> GetByUserId(int userId)
         {
-            return new SuccessDataResult<User>(_userDal.Get(u => u.UserId == userId));
+            return new SuccessDataResult<User>(_userDal.Get(u => u.Id == userId));
+        }
+
+        public List<OperationClaim> GetClaims(User user)
+        {
+            return _userDal.GetClaims(user);
+
         }
 
         public IResult Update(User user)

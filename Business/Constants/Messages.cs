@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Core.Entities.Concrete;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -37,6 +38,18 @@ namespace Business.Constants
 
         ////USER MESSAGE
         public static string UsersAddedSuccessMessage = "Kullanıcı eklendi";
+
+        public static string AuthorizationDenied = "Authorization denied";
+
+        public static string AccessTokenCreated = "Access Token Created";
+
+        public static string SuccessfulLogin = "Successful Login";
+
+        public static string PasswordError = "Password incorrect";
+
+        public static string UserRegistered = "User successfully registered";
+
+        public static string UserAlreadyExists = "User already exists";
         //public static string UsersAddedErrorMessage = "Kullanıcı eklenirken hata oluştu";
         //public static string UsersDeletedSuccessMessage = "Kullanıcı silindi";
         //public static string UsersDeletedErrorMessage = "Kullanıcı silinirken hata oluştu";
